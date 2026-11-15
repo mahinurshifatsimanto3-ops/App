@@ -1,97 +1,266 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APK Download</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APK Download | Official</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+:root {
+    --green: #39e58c;
+    --dark: #07130f;
+    --card: rgba(255,255,255,0.07);
+}
 
-        .container {
-            background: white;
-            width: 90%;
-            max-width: 380px;
-            padding: 35px 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: var(--dark);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+}
 
-        .icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
+/* Animated background */
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
 
-        h1 {
-            font-size: 25px;
-            color: #222;
-            margin-bottom: 10px;
-        }
+.blob {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: #00e676;
+    filter: blur(110px);
+    opacity: 0.18;
+    border-radius: 50%;
+    animation: float 8s infinite alternate ease-in-out;
+}
 
-        p {
-            color: #777;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
+.blob.one {
+    top: -100px;
+    left: -100px;
+}
 
-        .download-btn {
-            display: block;
-            background: #16a34a;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 17px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
+.blob.two {
+    bottom: -100px;
+    right: -100px;
+    background: #00bcd4;
+    animation-delay: 2s;
+}
 
-        .download-btn:hover {
-            background: #15803d;
-        }
+@keyframes float {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(100px,80px) scale(1.3); }
+}
 
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #999;
-        }
-    </style>
+/* Main card */
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 28px;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 70px rgba(0,0,0,0.4);
+    animation: appear 1s ease forwards;
+    transition: transform .35s ease, border-color .35s ease;
+}
+
+.container:hover {
+    transform: translateY(-7px);
+    border-color: rgba(57,229,140,0.5);
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* App icon */
+.app-icon {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 25px;
+    border-radius: 28px;
+    background: linear-gradient(135deg,#39e58c,#00a85a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    box-shadow: 0 0 35px rgba(57,229,140,.3);
+    animation: bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+h1 {
+    font-size: 29px;
+    margin-bottom: 12px;
+    letter-spacing: .5px;
+}
+
+.description {
+    color: #a9b9b1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.version {
+    display: inline-block;
+    padding: 8px 15px;
+    background: rgba(57,229,140,.12);
+    color: var(--green);
+    border: 1px solid rgba(57,229,140,.2);
+    border-radius: 30px;
+    font-size: 12px;
+    margin-bottom: 28px;
+}
+
+/* Download button */
+.download-btn {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 17px;
+    border-radius: 14px;
+    background: linear-gradient(120deg,#39e58c,#00a85a);
+    color: #052b19;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+    transition: all .3s ease;
+    box-shadow: 0 8px 25px rgba(0,230,118,.2);
+}
+
+.download-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 10px 35px rgba(0,230,118,.4);
+}
+
+.download-btn:active {
+    transform: scale(.96);
+}
+
+.download-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,.4);
+    transform: skewX(-25deg);
+    transition: .7s;
+}
+
+.download-btn:hover::before {
+    left: 150%;
+}
+
+.footer {
+    margin-top: 28px;
+    color: #71847a;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.status {
+    color: var(--green);
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.status span {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { opacity: 1; box-shadow: 0 0 0 0 #39e58c; }
+    50% { opacity: .5; box-shadow: 0 0 0 7px transparent; }
+}
+
+@media(max-width:480px) {
+    .container {
+        padding: 35px 22px;
+    }
+    h1 {
+        font-size: 25px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="container">
+<div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+</div>
 
-        <div class="icon">📱</div>
+<div class="container">
 
-        <h1>My APK App</h1>
+    <div class="app-icon">📱</div>
 
-        <p>Download the latest version of our Android app.</p>
+    <h1>My APK Store</h1>
 
-        <a class="download-btn"
-           href="https://raw.githubusercontent.com/mahinurshifatsimanto3-ops/App/main/app.apk"
-            ⬇ DOWNLOAD APK
-        </a>
+    <p class="description">
+        Welcome to our official download page.
+        Download the latest Android application
+        with just one click.
+    </p>
 
-        <div class="footer">
-            Android APK • Latest Version
-        </div>
-
+    <div class="version">
+        ✦ LATEST VERSION • ANDROID
     </div>
+
+    <a class="download-btn"
+       href="https://raw.githubusercontent.com/mahinurshifatsimanto3-ops/App/main/app.apk"
+       download>
+       ⬇ &nbsp; DOWNLOAD APK
+    </a>
+
+    <div class="status">
+        <span></span> Download available
+    </div>
+
+    <div class="footer">
+        © 2026 My APK Store<br>
+        Powered by GitHub Pages
+    </div>
+
+</div>
 
 </body>
 </html>
